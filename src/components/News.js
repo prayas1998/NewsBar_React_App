@@ -38,16 +38,20 @@ export class News extends Component {
 
     }
     async updateNews(){
-        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=c74f9444dc5f4826ac908c7f4f9dc3c6&page=${this.state.page}&pagesize=${this.state.pageSize}`;
+        this.props.setProgress(10);
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pagesize=${this.state.pageSize}`;
         this.setState({loading:true})
         let data = await fetch(url);
+        this.props.setProgress(50);
         let parsedData = await data.json()
-        console.log(parsedData);
+        this.props.setProgress(75);
+        // console.log(parsedData);
         this.setState({
             articles: parsedData.articles,
             totalResults: parsedData.totalResults,
             loading: false
         })
+        this.props.setProgress(100);
     }
 
     
@@ -72,7 +76,7 @@ export class News extends Component {
 
     fetchMoreData = async () => {
         this.setState({page: this.state.page + 1})
-        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=c74f9444dc5f4826ac908c7f4f9dc3c6&page=${this.state.page}&pagesize=${this.state.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pagesize=${this.state.pageSize}`;
         // this.setState({loading:true})
         let data = await fetch(url);
         let parsedData = await data.json()
@@ -87,7 +91,7 @@ export class News extends Component {
     render() {
         return (
             <>
-                <h1 className = "text-center" style = {{margin: '40px 0px'}}> NewsBar - Top {this.capitalizeFirstLetter(this.props.category)} Headlines  </h1>
+                <h1 className = "text-center" style = {{margin: '40px 0px', marginTop: '90px'}}> NewsBar - Top {this.capitalizeFirstLetter(this.props.category)} Headlines  </h1>
 
                 {this.state.loading && <Spinner/>}
 

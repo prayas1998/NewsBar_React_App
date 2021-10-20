@@ -7,12 +7,16 @@ export class NewsItem extends Component {
         return (
             <div className="my-3">
                 <div className="card">
-                    <span
-                        className="position-absolute top-0 translate-middle badge rounded-pill bg-danger"
-                        style={{ left: "90%", zIndex: "1" }}
-                    >
-                        {source}
-                    </span>
+
+                    <div style={{display: 'flex',
+                        justifyContent: 'flex-end',
+                        position: 'absolute',
+                        right: '0px',}}>
+                        
+                        <span className="badge rounded-pill bg-danger" style={{padding:'3px 15px'}}>
+                            {source}
+                        </span>
+                    </div>
                     <img
                         src={!imageUrl? "https://cache.careers360.mobi/media/article_images/2021/10/15/du-featured-image.jpg": imageUrl}
                         className="card-img-top"
